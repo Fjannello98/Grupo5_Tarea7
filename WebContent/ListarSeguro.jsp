@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<ul style="list-style-type:none; display: flex; padding: 10px;">
+	<li style="margin-right:10px;"><a href="Inicio.jsp">Inicio</a></li>
+	<li style="margin-right:10px;"><a href="AgregarSeguro.jsp">Agregar seguro</a></li>
+	<li style="margin-right:10px;"><a href="ListarSeguro.jsp">Listar seguros</a></li>
+</ul>
 
+<h1>Soy la página listar seguro</h1>
 </body>
 </html>

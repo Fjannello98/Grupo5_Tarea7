@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.mysql.jdbc.PreparedStatement;
+
 public class SeguroDao implements Dao {
 	public int encontrarProximoId() {
 		int nro = 0;
@@ -57,6 +59,43 @@ public class SeguroDao implements Dao {
 	       }
 	       return true;
 	   }
+	 
+	 
+	 
+	 public Seguro obtenerSeguros(int id)
+		{
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Seguro seguro = new Seguro();
+			Connection con = null;
+			try{
+				con = DriverManager.getConnection(host + dbName, user, pass);
+				PreparedStatement miSentencia = (PreparedStatement) con.prepareStatement("Select * from usuario where Id = ?");
+				miSentencia.setInt(1, id); //Cargo el ID recibido
+				ResultSet resultado = miSentencia.executeQuery();
+				resultado.next();
+				
+				seguro.setIdSeguro(resultado.getInt(1));
+			    seguro.setDescripcion(resultado.getString(2));
+			    seguro.setCostoContratacion(resultado.getFloat(3));
+			    seguro.setCostoAsegurado(resultado.getFloat(3));
+			    
+			    con.close();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Conexion fallida");
+			}
+			finally
+			{
+			}
+			return seguro;
+		}
 	/* Crear proceso almacenado con este script
 	 * 
 	 DELIMITER $$

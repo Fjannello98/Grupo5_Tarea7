@@ -75,5 +75,20 @@ public class servletFormulario extends HttpServlet {
 		response.sendRedirect(servletRedir);
 		
 	}
+	
+	
+	protected void doGet2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOExecption {
+		
+		if(request.getParameter("ListarSeguros")!=null) {
+			SeguroDao sdao = new SeguroDao();
+			ArrayList<Seguro> lista = sdao.obtenerSeguros();
+			
+			request.setAttribute("listaS", lista);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/ListarSeguro.jsp");
+			rd.forward(request, response);
+		}
+		
+	}
 
 }

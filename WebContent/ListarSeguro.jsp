@@ -14,5 +14,35 @@
 </ul>
 
 <h1>Soy la página listar seguro</h1>
+
+<% 
+	ArrayList<Seguro> listaSeguros = null;
+	if(request.getAttribute("listaS")!=null)
+	{
+		listaSeguros = (ArrayList<Seguro>) request.getAttribute("listaS");
+	}
+
+ %>
+
+<table border="1">
+	<tr> <th>ID</th>  <th>Descripcion</th>  <th>Tipo de Seguro</th>  <th>Costo Contratacion</th> <th>Costo Asegurado</th> </tr>
+	
+	<%  if(listaSeguros!=null)
+		for(Seguro seguro : listaSeguros) 
+		{
+	%>
+	<tr>  
+	     <form action="servletUsuario" method="post">
+	     <td><%=seguro.getIdSeguro() %> <input type="hidden" name="idUsuario" value="<%=user.getId() %>"> </td>    
+	     <td><%=seguro.getIdTipo() %></td>   
+	     <td><%=seguro.getDescripcion() %></td>
+	     <td><%=seguro.getCostoContratacion() %></td>   
+	     <td><%=seguro.getCostoAsegurado() %></td>    
+	     <td> <input type="submit" name="btnEliminar" value="Eliminar"> </td>  
+	     </form>  
+	</tr>
+	<%  } %>
+
+</table>
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -62,8 +63,9 @@ public class SeguroDao implements Dao {
 	 
 	 
 	 
-	 public Seguro obtenerSeguros(int id)
-		{
+	 public ArrayList<Seguro> obtenerSeguros(){
+		 
+		 
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 			} catch (ClassNotFoundException e) {
@@ -71,21 +73,28 @@ public class SeguroDao implements Dao {
 				e.printStackTrace();
 			}
 			
-			Seguro seguro = new Seguro();
+			ArrayList<Seguro> lista = new ArrayList<Seguro>();
 			Connection con = null;
 			try{
 				con = DriverManager.getConnection(host + dbName, user, pass);
-				PreparedStatement miSentencia = (PreparedStatement) con.prepareStatement("Select * from usuario where Id = ?");
-				miSentencia.setInt(1, id); //Cargo el ID recibido
-				ResultSet resultado = miSentencia.executeQuery();
-				resultado.next();
+				Statement st = con.createStatement();
 				
-				seguro.setIdSeguro(resultado.getInt(1));
-			    seguro.setDescripcion(resultado.getString(2));
-			    seguro.setCostoContratacion(resultado.getFloat(3));
-			    seguro.setCostoAsegurado(resultado.getFloat(3));
-			    
-			    con.close();
+				ResultSet rs = st.executeQuery("SELECT idSeguro, descripcion, costoContratacion, costoAsegurado FROM seguros");
+				
+				while(rs.next()) {
+					
+					Seguro seguro = new Seguro();
+					seguro.setIdSeguro(rs.getInt("idSeguro"));
+					seguro.setDescripcion(rs.getString("descripcion"));
+					seguro.setCostoContratacion(rs.getFloat("costoContratacion"));
+					seguro.setCostoAsegurado(rs.getFloat("costoAsegurado"));
+						
+				
+				lista.add(seguro);
+					
+					
+				}
+				
 			}
 			catch(Exception e)
 			{
@@ -94,7 +103,7 @@ public class SeguroDao implements Dao {
 			finally
 			{
 			}
-			return seguro;
+			return lista;
 		}
 	/* Crear proceso almacenado con este script
 	 * 

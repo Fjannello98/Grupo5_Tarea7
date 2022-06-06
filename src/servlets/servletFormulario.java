@@ -32,6 +32,18 @@ public class servletFormulario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		if(request.getParameter("ListarSeguros")!=null) {
+			SeguroDao sdao = new SeguroDao();
+			ArrayList<Seguro> lista = sdao.obtenerSeguros();
+			
+			request.setAttribute("listaS", lista);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/ListarSeguro.jsp");
+			rd.forward(request, response);
+		}
+		
+		
+		
 		if(request.getParameter("tipoSegurosList")!=null)
 		{
 			TipoSeguroDao tsdao = new TipoSeguroDao();	
@@ -77,17 +89,9 @@ public class servletFormulario extends HttpServlet {
 	}
 	
 	
-	protected void doGet2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOExecption {
+	protected void doGet2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if(request.getParameter("ListarSeguros")!=null) {
-			SeguroDao sdao = new SeguroDao();
-			ArrayList<Seguro> lista = sdao.obtenerSeguros();
-			
-			request.setAttribute("listaS", lista);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/ListarSeguro.jsp");
-			rd.forward(request, response);
-		}
+		
 		
 	}
 

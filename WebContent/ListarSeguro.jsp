@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import= "dominio.Seguro" %>
+<%@ page import= "java.util.ArrayList" %>
+<%@ page import=  "java.io.IOException" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +16,7 @@
 	<li style="margin-right:10px;"><a href="ListarSeguro.jsp">Listar seguros</a></li>
 </ul>
 
-<h1>Soy la página listar seguro</h1>
+<h1 style="font-family: Courier, monospace; font-size:100%;">Tipo de seguros en la base de datos</h1>
 
 <% 
 	ArrayList<Seguro> listaSeguros = null;
@@ -25,21 +28,19 @@
  %>
 
 <table border="1">
-	<tr> <th>ID</th>  <th>Descripcion</th>  <th>Tipo de Seguro</th>  <th>Costo Contratacion</th> <th>Costo Asegurado</th> </tr>
+	<tr> <th>ID</th>  <th>Descripcion</th>  <th>Costo Contratacion</th> <th>Costo Asegurado</th> </tr>
 	
 	<%  if(listaSeguros!=null)
 		for(Seguro seguro : listaSeguros) 
 		{
 	%>
 	<tr>  
-	     <form action="servletUsuario" method="post">
-	     <td><%=seguro.getIdSeguro() %> <input type="hidden" name="idUsuario" value="<%=user.getId() %>"> </td>    
-	     <td><%=seguro.getIdTipo() %></td>   
+
+	     <td><%=seguro.getIdSeguro() %></td>
 	     <td><%=seguro.getDescripcion() %></td>
 	     <td><%=seguro.getCostoContratacion() %></td>   
 	     <td><%=seguro.getCostoAsegurado() %></td>    
-	     <td> <input type="submit" name="btnEliminar" value="Eliminar"> </td>  
-	     </form>  
+	      
 	</tr>
 	<%  } %>
 

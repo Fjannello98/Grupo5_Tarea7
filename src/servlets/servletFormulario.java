@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dominio.TipoSeguroDao;
+import dominio.SeguroDao;
 import dominio.TipoSeguro;
 
 /**
  * Servlet implementation class servletTipoSeguro
  */
-@WebServlet("/servletTipoSeguro")
-public class servletTipoSeguro extends HttpServlet {
+@WebServlet("/servletFormulario")
+public class servletFormulario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public servletTipoSeguro() {
+    public servletFormulario() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,9 +40,16 @@ public class servletTipoSeguro extends HttpServlet {
             ArrayList<TipoSeguro> lista= tsdao.obtenerTiposSeguro();
 			request.setAttribute("listaTs", lista);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");   
-	        rd.forward(request, response);
 		}
+		if(request.getParameter("proxId")!=null) {
+			System.out.println("Hola");
+			SeguroDao sdao = new SeguroDao();
+			int proxId = sdao.encontrarProximoId();
+			request.setAttribute("proxId", proxId);
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");   
+        rd.forward(request, response);
 	}
 
 	/**

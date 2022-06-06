@@ -8,18 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 
-public class TipoSeguroDao {
-    private String host = "jdbc:mysql://localhost:3306/";
-	private String user = "root";
-	private String pass = "root";
-	private String dbName = "segurosgroup";
-	private String sslParam = "?useSSL=false";
+public class TipoSeguroDao implements Dao {
 
 		
 		public ArrayList<TipoSeguro> obtenerTiposSeguro() {
 
 			try {
-				Class.forName("com.mysql.jdbc.Driver");
+				Class.forName(driver);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -42,13 +37,10 @@ public class TipoSeguroDao {
 				}
 				conn.close();
 			}catch(Exception e){
-				System.out.println("NO ENTROOOOOO");
 				e.printStackTrace();
 			}finally{
 			
 			}
-			
-			System.out.println(lista);
 			
 			return lista;
 		}

@@ -13,21 +13,25 @@
 
 <% 
 	ArrayList<TipoSeguro> listaTiposDeSeguro = null;
+    int proxId = 0;
 	if(request.getAttribute("listaTs")!= null)
 	{
 		listaTiposDeSeguro = (ArrayList<TipoSeguro>)request.getAttribute("listaTs");
+	}
+	if (request.getAttribute("proxId")!=null) {
+		proxId = (int)request.getAttribute("proxId");
 	}
 
  %>
 	<ul style="list-style-type:none; display: flex; padding: 10px;">
 		<li style="margin-right:10px;"><a href="Inicio.jsp">Inicio</a></li>
-		<li style="margin-right:10px;"><a href="servletTipoSeguro?tipoSegurosList=1">Agregar seguro</a></li>
+		<li style="margin-right:10px;"><a href="servletFormulario?tipoSegurosList=1&proxId=1">Agregar seguro</a></li>
 		<li style="margin-right:10px;"><a href="ListarSeguro.jsp">Listar seguros</a></li>
 	</ul>
 	
 	<h3>Agregar seguro</h3>
 	<form method="get">
-		<label for="txtNombre" style="margin-right:10px;">ID</label><span>*ID proximo*</span><br>
+		<label for="txtNombre" style="margin-right:10px;">ID</label><span><%=proxId%></span><br>
 		<label for="txtDescripcion"style="margin-right:10px;">Descripción</label><input type="text" id="txtDescripcion" name="txtDescripcion"><br>
 		<label for="selectTipoSeguro" style="margin-right:10px;">Tipo de seguro</label>
 			<select id="selectTipoSeguro" name="tipoSeguro">

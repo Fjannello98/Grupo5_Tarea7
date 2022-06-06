@@ -9,7 +9,7 @@
 <body>
 <ul style="list-style-type:none; display: flex; padding: 10px;">
 	<li style="margin-right:10px;"><a href="Inicio.jsp">Inicio</a></li>
-	<li style="margin-right:10px;"><a href="servletTipoSeguro?tipoSegurosList=1">Agregar seguro</a></li>
+	<li style="margin-right:10px;"><a href="servletFormulario?tipoSegurosList=1&proxId=1">Agregar seguro</a></li>
 	<li style="margin-right:10px;"><a href="ListarSeguro.jsp">Listar seguros</a></li>
 </ul>
 

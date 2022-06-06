@@ -11,12 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dominio.TipoSeguroDao;
+import dominio.Seguro;
 import dominio.SeguroDao;
 import dominio.TipoSeguro;
 
-/**
- * Servlet implementation class servletTipoSeguro
- */
 @WebServlet("/servletFormulario")
 public class servletFormulario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -42,11 +40,14 @@ public class servletFormulario extends HttpServlet {
 			
 		}
 		if(request.getParameter("proxId")!=null) {
-			System.out.println("Hola");
 			SeguroDao sdao = new SeguroDao();
 			int proxId = sdao.encontrarProximoId();
 			request.setAttribute("proxId", proxId);
 		}
+		if(request.getParameter("seguroAgregado")!=null) {
+			request.setAttribute("seguroAgregado", "1");
+		}
+		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");   
         rd.forward(request, response);
@@ -57,7 +58,22 @@ public class servletFormulario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String servletRedir = "servletFormulario?tipoSegurosList=1&proxId=1"; 
+		if(request.getParameter("btnAceptar")!=null)
+		{
+			
+			SeguroDao sDao = new SeguroDao();
+			Seguro seguro = new Seguro();
+			seguro.setIdSeguro((Integer.parseInt(request.getParameter("txtProxId").toString())));
+			seguro.setCostoAsegurado((Float.parseFloat(request.getParameter("txtCostoAsegurado").toString())));
+			seguro.setCostoContratacion((Float.parseFloat(request.getParameter("txtCostoContratacion").toString())));
+			seguro.setDescripcion(request.getParameter("txtDescripcion").toString());
+			seguro.setIdTipo((Integer.parseInt(request.getParameter("tipoSeguro").toString())));			
+			boolean pudoAgregarlo = sDao.procedimientoInsertarSeguro(seguro);
+			servletRedir += pudoAgregarlo ? "&seguroAgregado=1" : "&seguroAgregado=0";
+		}
+		response.sendRedirect(servletRedir);
+		
 	}
 
 }

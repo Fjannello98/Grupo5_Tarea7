@@ -1,5 +1,6 @@
 package dominio;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,7 +22,6 @@ public class SeguroDao implements Dao {
 			
 			ResultSet rs = st.executeQuery("Select MAX(idSeguro) as maximo FROM seguros");
 			if (rs.next()) {	
-				System.out.println("Entro");
 				nro = rs.getInt("maximo") + 1;
 			}
 			conn.close();
@@ -30,4 +30,39 @@ public class SeguroDao implements Dao {
 		}
 		return nro;
 	}
+	
+	 public boolean procedimientoInsertarSeguro(Seguro seguro)
+	   {
+		 try {
+				Class.forName(driver);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		   Connection conn = null;
+	       try {
+	    	    conn = DriverManager.getConnection(host + dbName + sslParam, user, pass);
+	            CallableStatement proc = conn.prepareCall(" CALL crearSeguro(?,?,?,?,?) ");
+	            proc.setInt("pidSeguro", seguro.getIdSeguro());
+	            proc.setString("pdescripcion", seguro.getDescripcion());
+	            proc.setInt("pidTipo", seguro.getIdTipo());
+	            proc.setFloat("pcostoContratacion", seguro.getCostoContratacion());
+	            proc.setFloat("pcostoAsegurado", seguro.getCostoAsegurado());
+	            proc.execute();            
+	        } 
+	       catch (Exception e) {                  
+	            System.out.println(e);
+	            return false;
+	       }
+	       return true;
+	   }
+	/* Crear proceso almacenado con este script
+	 * 
+	 DELIMITER $$
+	 CREATE PROCEDURE `crearSeguro`(IN pidSeguro int, IN pdescripcion varchar(200), IN pidTipo int, IN pcostoContratacion decimal(10,0), IN pcostoAsegurado decimal(10,0))
+	 BEGIN
+	 INSERT INTO seguros(idSeguro,descripcion,idTipo,costoContratacion,costoAsegurado) VALUES (pidSeguro,pdescripcion,pidTipo,pcostoContratacion,pcostoAsegurado);
+	 END
+	$$ DELIMITER ;*/
 }

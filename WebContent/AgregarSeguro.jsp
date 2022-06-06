@@ -30,8 +30,9 @@
 	</ul>
 	
 	<h3>Agregar seguro</h3>
-	<form method="get">
+	<form method="post" action="servletFormulario?btnAceptar=1">
 		<label for="txtNombre" style="margin-right:10px;">ID</label><span><%=proxId%></span><br>
+		<input type="hidden" name="txtProxId" value="<%=proxId %>">
 		<label for="txtDescripcion"style="margin-right:10px;">Descripción</label><input type="text" id="txtDescripcion" name="txtDescripcion"><br>
 		<label for="selectTipoSeguro" style="margin-right:10px;">Tipo de seguro</label>
 			<select id="selectTipoSeguro" name="tipoSeguro">
@@ -45,9 +46,16 @@
 			}
 		%>	
 			</select><br>
-		<label for="txtCostoSeguro" style="margin-right:10px;">Costo de seguro</label><input type="number" id="txtCostoSeguro" name="txtCostoSeguro"><br>
-		<label for="txtCostoMaxContratacion" style="margin-right:10px;">Costo máximo de contratación</label><input type="number" id="txtCostoMaxContratacion" name="txtCostoMaxContratacion"><br>	
+		<label for="txtCostoAsegurado" style="margin-right:10px;">Costo de seguro</label><input type="number" id="txtCostoAsegurado" name="txtCostoAsegurado"><br>
+		<label for="txtCostoContratacion" style="margin-right:10px;">Costo máximo de contratación</label><input type="number" id="txtCostoContratacion" name="txtCostoContratacion"><br>	
 		<button type="submit" name="btnAceptar">Aceptar</button>
 	</form>
+	<%
+	if (request.getAttribute("seguroAgregado")!=null && Integer.parseInt(request.getAttribute("seguroAgregado").toString()) == 1) {
+	%>
+		<h5 style="color:green">¡Seguro agregado con éxito!</h5>
+	<%
+	}
+	%>
 </body>
 </html>

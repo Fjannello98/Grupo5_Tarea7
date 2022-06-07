@@ -11,7 +11,7 @@
 <ul style="list-style-type:none; display: flex; padding: 10px;">
 	<li style="margin-right:10px;"><a href="Inicio.jsp">Inicio</a></li>
 	<li style="margin-right:10px;"><a href="servletFormulario?tipoSegurosList=1&proxId=1">Agregar seguro</a></li>
-	<li style="margin-right:10px;"><a href="serverletFormulario?ListarSeguros=1&proxId=1">Listar seguros</a></li>
+	<li style="margin-right:10px;"><a href="ListarSeguro.jsp">Listar seguros</a></li>
 </ul>
 
 <h1>Soy la página de inicio</h1>

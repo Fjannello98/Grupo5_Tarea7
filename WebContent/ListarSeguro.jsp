@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Listar Seguros</title>
 </head>
 <body>
 <ul style="list-style-type:none; display: flex; padding: 10px;">
@@ -16,7 +16,7 @@
 	<li style="margin-right:10px;"><a href="ListarSeguro.jsp">Listar seguros</a></li>
 </ul>
 
-<h1 style="font-family: Courier, monospace; font-size:100%;">Tipo de seguros en la base de datos</h1>
+<h1 style="font-family: Courier, monospace; font-size:100%;">Tipo de seguros en la base de datos: </h1>
 
 <% 
 	ArrayList<Seguro> listaSeguros = null;
